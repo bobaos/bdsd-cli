@@ -1,0 +1,28 @@
+{
+  "name": "bdsd-cli",
+  "version": "1.0.0",
+  "description": "Bobaos Datapoint Sdk Command Line Interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shabunin/bdsd-cli.git"
+  },
+  "keywords": [
+    "bobaos",
+    "baos",
+    "knx"
+  ],
+  "author": "Vladimir Shabunin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shabunin/bdsd-cli/issues"
+  },
+  "homepage": "https://github.com/shabunin/bdsd-cli#readme",
+  "dependencies": {
+    "bdsd.client": "^1.0.0",
+    "vorpal": "^1.12.0"
+  }
+}
