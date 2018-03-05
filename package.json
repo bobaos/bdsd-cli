@@ -1,13 +1,13 @@
 {
   "name": "bdsd-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bobaos Datapoint Sdk Command Line Interface",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-      "bdsd-cli": "./bin/bdsd-cli.js"
+    "bdsd-cli": "./bin/bdsd-cli.js"
   },
   "repository": {
     "type": "git",
