@@ -4,6 +4,10 @@ Commad-line interface for Bobaos Datapoint Sdk.
 
 ## Installation
 
+First, you need to install and run as a service [bdsd.sock](https://github.com/shabunin/bdsd.sock)
+
+If it is already done, proceed to next steps:
+
 ```sh
 $ sudo npm install -g bdsd-cli
 ```
