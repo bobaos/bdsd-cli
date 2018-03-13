@@ -39,6 +39,10 @@ bobaos> help
 3. Try commands:
 
 ```sh
+bobaos> setProgrammingMode -v 1
+Set programming mode: success
+bobaos> setProgrammingMode -v 0
+Set programming mode: success 
 bobaos> getDatapoints
 [ { id: 1,
     length: 2,
@@ -82,6 +86,5 @@ bobaos> getDescription -s 1
       transmit: true,
       update: false },
       length: 2 } }
-bobaos> 
 ```
 

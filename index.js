@@ -123,3 +123,26 @@ vorpal
       setTimeout(callback, 250);
     }
   });
+
+vorpal
+  .command('setProgrammingMode', 'Set programming mode')
+  .option('-v, --value <value>', 'Required. Value')
+  .action(function (args, callback) {
+    try {
+      let start = args.options.start;
+      if (typeof args.options.value === 'undefined') {
+        throw new Error('Please specify value');
+      }
+      let value = args.options.value;
+      myClient
+        .setProgrammingMode(value)
+        .then(_ => {
+          console.log('Set programming mode: success');
+        })
+        .catch(console.log);
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(callback, 250);
+    }
+  });

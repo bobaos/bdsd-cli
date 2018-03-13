@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/shabunin/bdsd-cli#readme",
   "dependencies": {
-    "bdsd.client": "^1.0.0",
+    "bdsd.client": "^1.0.2",
     "vorpal": "^1.12.0"
   }
 }
