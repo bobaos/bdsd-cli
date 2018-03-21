@@ -10,7 +10,7 @@ const vorpal = Vorpal();
 
 // Register listener for broadcasted values
 myClient.on('value', data => {
-  //console.log('broadcasted value', data);
+  vorpal.log('broadcasted value:', data);
 });
 
 // Listener for connected event.
