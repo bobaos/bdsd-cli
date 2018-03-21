@@ -16,7 +16,7 @@ myClient.on('value', data => {
 // Listener for connected event.
 // Triggers when client connects and receive 'bus connected' notification
 myClient.on('connect', _ => {
-  console.log('connected');
+  vorpal.log('connected');
   vorpal
     .delimiter('bobaos>')
     .show();
@@ -27,8 +27,8 @@ vorpal
   .action(function (args, callback) {
     myClient
       .getDatapoints()
-      .then(console.log)
-      .catch(console.log);
+      .then(p => { this.log(p) })
+      .catch(e => { this.log(e) });
     setTimeout(callback, 250);
   });
 
@@ -45,10 +45,10 @@ vorpal
       //app.getDatapointDescription(start, number);
       myClient
         .getDescription(start)
-        .then(console.log)
-        .catch(console.log);
+        .then(p => { this.log(p) })
+        .catch(e => { this.log(e) });
     } catch (e) {
-      console.log(e)
+      this.log(e)
     } finally {
       setTimeout(callback, 250);
     }
@@ -67,10 +67,10 @@ vorpal
       //app.getDatapointDescription(start, number);
       myClient
         .getValue(start)
-        .then(console.log)
-        .catch(console.log);
+        .then(p => { this.log(p) })
+        .catch(e => { this.log(e) });
     } catch (e) {
-      console.log(e)
+      this.log(e)
     } finally {
       setTimeout(callback, 250);
     }
@@ -89,10 +89,10 @@ vorpal
       //app.getDatapointDescription(start, number);
       myClient
         .readValue(start)
-        .then(console.log)
-        .catch(console.log);
+        .then(p => { this.log(p) })
+        .catch(e => { this.log(e) });
     } catch (e) {
-      console.log(e)
+      this.log(e)
     } finally {
       setTimeout(callback, 250);
     }
@@ -115,10 +115,10 @@ vorpal
       //app.getDatapointDescription(start, number);
       myClient
         .setValue(start, value)
-        .then(console.log)
-        .catch(console.log);
+        .then(p => { this.log(p) })
+        .catch(e => { this.log(e) });
     } catch (e) {
-      console.log(e)
+      this.log(e)
     } finally {
       setTimeout(callback, 250);
     }
@@ -137,11 +137,11 @@ vorpal
       myClient
         .setProgrammingMode(value)
         .then(_ => {
-          console.log('Set programming mode: success');
+          this.log('Set programming mode: success');
         })
-        .catch(console.log);
+        .catch(e => { this.log(e) });
     } catch (e) {
-      console.log(e)
+      this.log(e)
     } finally {
       setTimeout(callback, 250);
     }
