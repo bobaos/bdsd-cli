@@ -19,7 +19,8 @@ myClient.on('connect', _ => {
   vorpal.log('connected');
   vorpal
     .delimiter('bobaos>')
-    .show();
+    .show()
+    .parse(process.argv);
 });
 
 vorpal

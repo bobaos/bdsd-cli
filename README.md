@@ -88,3 +88,8 @@ bobaos> getDescription -s 1
       length: 2 } }
 ```
 
+4. You may use commands as commandline argument
+
+```
+$ bdsd-cli setValue -s 42 -v 1
+```
