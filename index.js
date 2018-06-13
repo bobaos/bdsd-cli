@@ -5,6 +5,24 @@ const Vorpal = require('vorpal');
 
 const vorpal = Vorpal();
 
+function formatDate(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  let milliseconds = date.getMilliseconds();
+  milliseconds = parseInt(milliseconds) < 10 ? '0' + milliseconds : milliseconds;
+  milliseconds = parseInt(milliseconds) < 100 ? '0' + milliseconds : milliseconds;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${hours}:${minutes}:${seconds}:${milliseconds}`;
+}
+
+const formatDatapointValue = data => {
+  return `${formatDate(new Date())},    id: ${data.id}, value: ${data.value}, raw: [${data.raw.data}]`;
+};
+
 const BdsdCli = function (params) {
   // connect to IPC
   let sockFile;
@@ -14,7 +32,7 @@ const BdsdCli = function (params) {
   const myClient = BdsdClient(sockFile);
   // Register listener for broadcasted values
   myClient.on('value', data => {
-    vorpal.log('broadcasted value:', data);
+    vorpal.log(formatDatapointValue(data));
   });
 
   // Listener for connected event.
@@ -32,12 +50,12 @@ const BdsdCli = function (params) {
       myClient
         .getDatapoints()
         .then(p => {
-          this.log(p)
+          this.log(p);
         })
         .catch(e => {
-          this.log(e)
+          this.log(e.message);
         });
-      setTimeout(callback, 250);
+      callback();
     });
 
   vorpal
@@ -49,20 +67,18 @@ const BdsdCli = function (params) {
           throw new Error('Please specify datapoint id');
         }
         let start = args.options.start;
-
-        //app.getDatapointDescription(start, number);
         myClient
           .getDescription(start)
           .then(p => {
-            this.log(p)
+            this.log(p);
           })
           .catch(e => {
-            this.log(e)
+            this.log(e.message);
           });
       } catch (e) {
-        this.log(e)
+        this.log(e.message);
       } finally {
-        setTimeout(callback, 250);
+        callback();
       }
     });
 
@@ -75,20 +91,18 @@ const BdsdCli = function (params) {
           throw new Error('Please specify datapoint id');
         }
         let start = args.options.start;
-
-        //app.getDatapointDescription(start, number);
         myClient
           .getValue(start)
           .then(p => {
-            this.log(p)
+            this.log(formatDatapointValue(p));
           })
           .catch(e => {
-            this.log(e)
+            this.log(e.message);
           });
       } catch (e) {
-        this.log(e)
+        this.log(e.message);
       } finally {
-        setTimeout(callback, 250);
+        callback();
       }
     });
 
@@ -101,20 +115,18 @@ const BdsdCli = function (params) {
           throw new Error('Please specify datapoint id');
         }
         let start = args.options.start;
-
-        //app.getDatapointDescription(start, number);
         myClient
           .readValue(start)
           .then(p => {
-            this.log(p)
+            //this.log(p)
           })
           .catch(e => {
-            this.log(e)
+            this.log(e.message);
           });
       } catch (e) {
-        this.log(e)
+        this.log(e.message);
       } finally {
-        setTimeout(callback, 250);
+        callback();
       }
     });
 
@@ -132,19 +144,18 @@ const BdsdCli = function (params) {
           throw new Error('Please specify datapoint value');
         }
         let value = args.options.value;
-        //app.getDatapointDescription(start, number);
         myClient
           .setValue(start, value)
           .then(p => {
-            this.log(p)
+            //this.log(p)
           })
           .catch(e => {
-            this.log(e)
+            this.log(e.message);
           });
       } catch (e) {
-        this.log(e)
+        this.log(e.message);
       } finally {
-        setTimeout(callback, 250);
+        callback();
       }
     });
 
@@ -161,15 +172,95 @@ const BdsdCli = function (params) {
         myClient
           .setProgrammingMode(value)
           .then(_ => {
-            this.log('Set programming mode: success');
+            this.log(`Set programming mode: ${value}`);
           })
           .catch(e => {
-            this.log(e)
+            this.log(e.message);
           });
       } catch (e) {
-        this.log(e)
+        this.log(e.message);
       } finally {
-        setTimeout(callback, 250);
+        callback();
+      }
+    });
+
+  vorpal
+    .command('getStoredValue', 'Get stored datapoint value from bdsd.sock')
+    .option('-s, --start <number>', 'Required. Id of datapoint')
+    .action(function (args, callback) {
+      try {
+        if (typeof args.options.start === 'undefined') {
+          throw new Error('Please specify datapoint id');
+        }
+        let start = args.options.start;
+
+        myClient
+          .getStoredValue(start)
+          .then(p => {
+            this.log(formatDatapointValue(p))
+          })
+          .catch(e => {
+            this.log(e.message);
+          });
+      } catch (e) {
+        this.log(e.message);
+      } finally {
+        callback();
+      }
+    });
+
+  // multiple values
+  vorpal
+    .command('readValues', 'Send read request to bus for multiple values')
+    .option('-s, --start <string>', 'Required. Array of datapoints in string format. "1, 2, 3"')
+    .action(function (args, callback) {
+      try {
+
+        if (typeof args.options.start === 'undefined') {
+          throw new Error('Please specify datapoints to read');
+        }
+        let start = args.options.start;
+        let ids = start.split(',').map(t => parseInt(t));
+        myClient
+          .readValues(ids)
+          .then(p => {
+            //this.log(p);
+          })
+          .catch(e => {
+            this.log(e.message);
+          });
+      } catch (e) {
+        this.log(e.message);
+      } finally {
+        callback();
+      }
+    });
+
+  vorpal
+    .command('setValues', 'Send read request to bus for multiple values')
+    .option('-s, --start <string>', 'Required. Object of datapoints in string format. "1: true, 2: false"')
+    .action(function (args, callback) {
+      try {
+        if (typeof args.options.start === 'undefined') {
+          throw new Error('Please specify datapoints to read');
+        }
+        let start = args.options.start;
+        let values = start.split(',').map(t => {
+          let data = t.split(':');
+          return {id: parseInt(data[0]), value: data[1]}
+        });
+        myClient
+          .setValues(values)
+          .then(p => {
+            //this.log(p);
+          })
+          .catch(e => {
+            this.log(e.message);
+          });
+      } catch (e) {
+        this.log(e.message);
+      } finally {
+        callback();
       }
     });
   return myClient;
