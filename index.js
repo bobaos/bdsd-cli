@@ -238,11 +238,11 @@ const BdsdCli = function (params) {
 
   vorpal
     .command('setValues', 'Send read request to bus for multiple values')
-    .option('-s, --start <string>', 'Required. Object of datapoints in string format. "1: true, 2: false"')
+    .option('-s, --start <string>', 'Required. Values in string format. "1: true, 2: false"')
     .action(function (args, callback) {
       try {
         if (typeof args.options.start === 'undefined') {
-          throw new Error('Please specify datapoints to read');
+          throw new Error('Please specify values to set');
         }
         let start = args.options.start;
         let values = start.split(',').map(t => {
