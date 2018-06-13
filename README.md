@@ -21,19 +21,26 @@ connected
 bobaos> 
 ```
 
+`bdsd-cli` accepts `-s, --sockfile` parameter with path to bdsd.sock. Default is `$XDG_RUNTIME_DIR/bdsd.sock`.
+
 2. Get command list
 
 ```sh
 bobaos> help
   Commands:
 
-      help [command...]          Provides help for a given command.
-      exit                       Exits application.
-      getDatapoints              Get all datapoint descriptions
-      getDescription [options]   Get datapoint description
-      getValue [options]         Get datapoint value
-      readValue [options]        Send read request to bus
-      setValue [options]         Set datapoint value
+      help [command...]              Provides help for a given command.
+      exit                           Exits application.
+      getDatapoints                  Get all datapoint descriptions
+      getDescription [options]       Get datapoint description
+      getValue [options]             Get datapoint value
+      readValue [options]            Send read request to bus
+      setValue [options]             Set datapoint value
+      setProgrammingMode [options]   Set programming mode
+      getStoredValue [options]       Get stored datapoint value from bdsd.sock
+      readValues [options]           Send read request to bus for multiple values
+      setValues [options]            Send read request to bus for multiple numerical/bool values
+
 ```
 
 3. Try commands:
@@ -42,7 +49,7 @@ bobaos> help
 bobaos> setProgrammingMode -v 1
 Set programming mode: success
 bobaos> setProgrammingMode -v 0
-Set programming mode: success 
+Set programming mode: 1
 bobaos> getDatapoints
 [ { id: 1,
     length: 2,
@@ -67,11 +74,11 @@ bobaos> getDatapoints
       update: false },
       dpt: 'dpt5' } ]
 bobaos> getValue -s 1
-{ id: 1, value: 19 }
+14:01:35:504,    id: 1, value: 22, raw: [12,76]
 bobaos> setValue -s 2 -v 0
-{ id: 2 }
 bobaos> readValue -s 1
-{ id: 1 }
+bobaos> readValue -s 2
+14:01:56:106,    id: 2, value: 0, raw: [0]
 bobaos> getDescription -s 1
 { id: 1,
   value:
@@ -86,10 +93,13 @@ bobaos> getDescription -s 1
       transmit: true,
       update: false },
       length: 2 } }
-```
+bobaos> getStoredValue -s 1
+14:02:25:748,    id: 1, value: 21.9, raw: [12,71]
+bobaos> readValues -s "1, 2, 3"
+14:02:44:399,    id: 1, value: 21.9, raw: [12,71]
+14:02:44:483,    id: 2, value: 0, raw: [0]
+14:02:44:607,    id: 3, value: 0, raw: [0]
+bobaos> setValues -s "3:0, 4:0, 5:1"
+bobaos>
 
-4. You may use commands as commandline argument
-
-```
-$ bdsd-cli setValue -s 42 -v 1
 ```
