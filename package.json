@@ -1,6 +1,6 @@
 {
   "name": "bdsd-cli",
-  "version": "1.0.8",
+  "version": "2.0.9",
   "description": "Bobaos Datapoint Sdk Command Line Interface",
   "main": "index.js",
   "scripts": {
