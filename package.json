@@ -13,7 +13,11 @@
     "type": "git",
     "url": "git+https://github.com/shabunin/bdsd-cli.git"
   },
-  "keywords": ["bobaos", "baos", "knx"],
+  "keywords": [
+    "bobaos",
+    "baos",
+    "knx"
+  ],
   "author": "Vladimir Shabunin",
   "license": "DBAD",
   "bugs": {
@@ -22,6 +26,7 @@
   "homepage": "https://github.com/shabunin/bdsd-cli#readme",
   "dependencies": {
     "bdsd.client": "^2.0.9",
+    "chalk": "^2.4.1",
     "vorpal": "^1.12.0",
     "yargs": "^11.0.0"
   }
