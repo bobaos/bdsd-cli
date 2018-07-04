@@ -11,19 +11,20 @@ If it is already done, proceed to next steps:
 ```sh
 $ sudo npm install -g bdsd-cli
 ```
+
 ## Usage
 
-1. Start the application
+1.  Start the application
 
 ```sh
 $ bdsd-cli
 connected
-bobaos> 
+bobaos>
 ```
 
 `bdsd-cli` accepts `-s, --sockfile` parameter with path to bdsd.sock. Default is `$XDG_RUNTIME_DIR/bdsd.sock`.
 
-2. Get command list
+2.  Get command list
 
 ```sh
 bobaos> help
@@ -40,10 +41,11 @@ bobaos> help
       getStoredValue [options]       Get stored datapoint value from bdsd.sock
       readValues [options]           Send read request to bus for multiple values
       setValues [options]            Send read request to bus for multiple numerical/bool values
-
+      watch [options]                Highlight datapoint in log
+      unwatch [options]              Remove datapoint value hightlight
 ```
 
-3. Try commands:
+3.  Try commands:
 
 ```sh
 bobaos> setProgrammingMode -v 1
@@ -101,5 +103,12 @@ bobaos> readValues -s "1, 2, 3"
 14:02:44:607,    id: 3, value: 0, raw: [0]
 bobaos> setValues -s "3:0, 4:0, 5:1"
 bobaos>
-
 ```
+
+Added in 2.0.10:
+
+- Datapoint value hightlight:
+
+![screenshot](./colors.png)
+
+- DBAD license
