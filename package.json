@@ -13,13 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/shabunin/bdsd-cli.git"
   },
-  "keywords": [
-    "bobaos",
-    "baos",
-    "knx"
-  ],
+  "keywords": ["bobaos", "baos", "knx"],
   "author": "Vladimir Shabunin",
-  "license": "ISC",
+  "license": "DBAD",
   "bugs": {
     "url": "https://github.com/shabunin/bdsd-cli/issues"
   },
