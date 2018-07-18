@@ -112,3 +112,9 @@ Added in 2.0.10:
 ![screenshot](./colors.png)
 
 - DBAD license
+
+## Support me
+
+You can send me a beer by PayPal
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/shabunin)
