@@ -1,17 +1,21 @@
 #!/usr/bin/env node
-const defaultSockFile = process.env['XDG_RUNTIME_DIR'] + '/bdsd.sock';
+const defaultSockFile = `${process.env['XDG_RUNTIME_DIR']}/bdsd.sock`;
 
-// TODO: commands
-const argv = require('yargs')
-  .option('sockfile', {
-    alias: 's',
-    describe: `path to socket file. Default: ${process.env['XDG_RUNTIME_DIR']}/bdsd.sock'`,
-    default: defaultSockFile
-  })
-  .argv;
+const program = require('commander');
+
+program
+  .option(
+    '-s --sockfile <path>',
+    `path to socket file. Default: ${defaultSockFile}`
+  )
+  .parse(process.argv);
 
 let params = {
-  sockFile: argv['sockfile']
+  sockFile: defaultSockFile
 };
+
+if (program['sockfile']) {
+  params.sockFile = program['sockfile'];
+}
 
 require('../index.js')(params);
